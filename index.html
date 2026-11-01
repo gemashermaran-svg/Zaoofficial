@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAO Official Store - Luxury Apparel</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB',
+                            dark: '#AA7C11',
+                            glow: '#FFE57F'
+                        },
+                        brand: {
+                            black: '#070708',
+                            dark: '#0D0D10',
+                            card: '#141418',
+                            border: '#262630',
+                            gray: '#8E8E93'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #070708; color: #F3F4F6; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #070708; }
+        ::-webkit-scrollbar-thumb { background: #262630; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF6D5 0%, #D4AF37 50%, #AA7C11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow:focus {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
+            border-color: #D4AF37;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px -5px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold selection:text-black">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <!-- MAIN NAVBAR (No Admin Buttons) -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-brand-black/90 border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo ZAO Official -->
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-gold-dark via-gold to-gold-light flex items-center justify-center font-black text-black text-xl shadow-lg shadow-gold/20">
+                    Z
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-widest gold-gradient-text">ZAO</span>
+                    <span class="text-[9px] tracking-[0.3em] text-brand-gray uppercase font-semibold">Official Store</span>
+                </div>
+            </a>
+
+            <!-- Cart Trigger -->
+            <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-xl bg-brand-card border border-brand-border hover:border-gold text-gray-200 hover:text-gold transition-all">
+                <i class="fa-solid fa-bag-shopping text-lg"></i>
+                <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-gold text-black text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center hidden shadow-md">0</span>
+            </button>
+
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-12 pb-20 border-b border-brand-border bg-gradient-to-b from-brand-black via-brand-dark to-brand-card">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest">
+                            <i class="fa-solid fa-crown text-[10px]"></i> Luxury Apparel & Streetwear
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none">
+                            ELEVATE YOUR <br/>
+                            <span class="gold-gradient-text">SIGNATURE STYLE</span>
+                        </h1>
+                        <p class="text-gray-400 text-sm sm:text-base max-w-xl font-light leading-relaxed">
+                            Koleksi eksklusif ZAO Official dirancang dengan detail presisi tinggi, material premium, dan estetika futuristik modern.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <a href="#catalog" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-gold-dark via-gold to-gold-light text-black font-extrabold uppercase tracking-wider hover:brightness-110 shadow-lg shadow-gold/20 transition-all flex items-center gap-2 text-xs">
+                                Lihat Koleksi <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual -->
+                    <div class="relative flex justify-center">
+                        <div class="w-full max-w-md aspect-[4/5] rounded-2xl border border-brand-border bg-gradient-to-tr from-brand-card to-brand-black p-5 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+                            <div class="absolute top-0 right-0 w-48 h-48 bg-gold/10 rounded-full filter blur-3xl"></div>
+                            <div class="flex justify-between items-center z-10">
+                                <span class="text-xs text-gold font-mono tracking-widest uppercase font-bold">ZAO EXCLUSIVE</span>
+                                <span class="text-xs text-gray-500 font-mono">COLLECTION 2026</span>
+                            </div>
+                            <div class="my-auto text-center space-y-4 z-10">
+                                <div class="w-32 h-32 mx-auto rounded-2xl bg-gradient-to-br from-gold/20 to-transparent border border-gold/40 flex items-center justify-center text-gold text-5xl shadow-inner">
+                                    <i class="fa-solid fa-gem animate-pulse"></i>
+                                </div>
+                                <h3 class="text-xl font-black tracking-widest uppercase text-white">ZAO PHANTOM CORE</h3>
+                            </div>
+                            <div class="p-3.5 bg-brand-black/80 rounded-xl border border-brand-border backdrop-blur-sm flex justify-between items-center z-10">
+                                <p class="text-xs font-bold text-emerald-400">Authentic Guaranteed</p>
+                                <span class="text-xs font-black text-gold tracking-widest uppercase">OFFICIAL STORE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section id="catalog" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header Filter & Search -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-white">
+                        Katalog <span class="gold-gradient-text">Produk ZAO</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1">Jelajahi busana eksklusif terbaru.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="relative min-w-[200px] flex-grow sm:flex-grow-0">
+                        <input type="text" id="search-input" oninput="renderProducts()" placeholder="Cari produk..." class="w-full bg-brand-card border border-brand-border text-xs rounded-xl px-4 py-2.5 pl-9 text-gray-200 focus:outline-none gold-border-glow">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-xs text-gray-500"></i>
+                    </div>
+                    <select id="category-filter" onchange="renderProducts()" class="bg-brand-card border border-brand-border text-xs rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none gold-border-glow">
+                        <option value="ALL">Semua Kategori</option>
+                        <option value="Outerwear">Outerwear</option>
+                        <option value="T-Shirt">T-Shirt</option>
+                        <option value="Pants">Pants</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="catalog-empty" class="py-20 text-center rounded-3xl border border-dashed border-brand-border bg-brand-card/30 my-8 hidden">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-brand-border/40 flex items-center justify-center text-gray-500 text-3xl mb-4 border border-brand-border">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-200 uppercase tracking-wider">Katalog Masih Kosong</h3>
+                <p class="text-sm text-gray-400 mt-2 max-w-md mx-auto">
+                    Belum ada produk yang diunggah saat ini. Silahkan kembali secara berkala.
+                </p>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-brand-border bg-brand-black py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded bg-gold text-black font-black flex items-center justify-center text-xs">Z</div>
+                <span class="text-sm font-bold text-gray-300 tracking-widest uppercase">ZAO Official Store</span>
+            </div>
+            <p class="text-xs text-gray-500">&copy; 2026 ZAO Official. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- DETAIL PRODUCT MODAL -->
+    <div id="detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-brand-card border border-brand-border w-full max-w-2xl rounded-2xl overflow-hidden relative shadow-2xl flex flex-col md:flex-row">
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/60 text-gray-300 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-full md:w-1/2 aspect-square bg-brand-black relative">
+                <img id="detail-image" src="" alt="Product Detail" class="w-full h-full object-cover">
+                <span id="detail-badge" class="absolute top-4 left-4 px-3 py-1 rounded-full bg-gold text-black font-black text-[10px] uppercase tracking-wider"></span>
+            </div>
+
+            <div class="w-full md:w-1/2 p-6 flex flex-col justify-between space-y-4">
+                <div class="space-y-3">
+                    <p class="text-[10px] text-gold uppercase tracking-widest font-mono font-bold" id="detail-category">ZAO OFFICIAL</p>
+                    <h3 class="text-xl font-extrabold text-white uppercase tracking-wider" id="detail-name">Product Name</h3>
+                    <p class="text-2xl font-black text-white" id="detail-price">Rp 0</p>
+                    
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase text-gray-400 mb-2">Pilih Ukuran (Size):</label>
+                        <div class="flex gap-2">
+                            <button onclick="selectSize('S')" class="size-btn px-3 py-1.5 rounded-lg border border-brand-border text-xs text-gray-300 hover:border-gold font-bold">S</button>
+                            <button onclick="selectSize('M')" class="size-btn px-3 py-1.5 rounded-lg border border-gold bg-gold/10 text-gold text-xs font-bold">M</button>
+                            <button onclick="selectSize('L')" class="size-btn px-3 py-1.5 rounded-lg border border-brand-border text-xs text-gray-300 hover:border-gold font-bold">L</button>
+                            <button onclick="selectSize('XL')" class="size-btn px-3 py-1.5 rounded-lg border border-brand-border text-xs text-gray-300 hover:border-gold font-bold">XL</button>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-brand-border pt-3">
+                        <p class="text-xs text-gray-400 leading-relaxed" id="detail-desc">Deskripsi...</p>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button id="detail-add-cart-btn" class="w-full py-3.5 rounded-xl bg-gold text-black font-extrabold text-xs uppercase tracking-wider hover:bg-gold-light transition-all shadow-lg shadow-gold/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> Tambah Ke Keranjang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART DRAWER -->
+    <div id="cart-backdrop" onclick="toggleCartDrawer()" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs hidden"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-brand-card border-l border-brand-border z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-5 border-b border-brand-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-gold"></i>
+                <h3 class="text-base font-bold text-white uppercase tracking-wider">Keranjang Belanja</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+
+        <div id="cart-items" class="flex-grow p-5 overflow-y-auto space-y-4"></div>
+
+        <div class="p-5 border-t border-brand-border bg-brand-black space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-400 font-medium">Total Pembayaran:</span>
+                <span class="text-lg font-black text-gold" id="cart-total">Rp 0</span>
+            </div>
+            <button onclick="handleWhatsAppCheckout()" class="w-full py-3.5 rounded-xl bg-emerald-500 text-black font-extrabold text-xs uppercase tracking-wider hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Order via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let products = [];
+        let cart = [];
+        let selectedSize = 'M';
+
+        window.onload = function() {
+            loadProducts();
+            renderProducts();
+            updateCartBadge();
+        };
+
+        function loadProducts() {
+            const data = localStorage.getItem('zao_products');
+            products = data ? JSON.parse(data) : [];
+        }
+
+        function renderProducts() {
+            loadProducts();
+            const grid = document.getElementById('product-grid');
+            const empty = document.getElementById('catalog-empty');
+            const search = document.getElementById('search-input').value.toLowerCase().trim();
+            const category = document.getElementById('category-filter').value;
+
+            const filtered = products.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(search) || p.description.toLowerCase().includes(search);
+                const matchCategory = category === 'ALL' || p.category === category;
+                return matchSearch && matchCategory;
+            });
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.classList.remove('hidden');
+
+                grid.innerHTML = filtered.map(p => `
+                    <div class="bg-brand-card border border-brand-border rounded-2xl overflow-hidden card-hover flex flex-col justify-between group">
+                        <div class="relative overflow-hidden aspect-square bg-brand-black cursor-pointer" onclick="openDetailModal(${p.id})">
+                            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x600/141418/D4AF37?text=ZAO+OFFICIAL'">
+                            <span class="absolute top-3 left-3 bg-brand-black/80 backdrop-blur-md border border-brand-border text-gold font-bold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                ${escapeHtml(p.category)}
+                            </span>
+                            ${!p.inStock ? `
+                                <span class="absolute bottom-3 left-3 bg-red-600/90 text-white font-bold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                    Out of Stock
+                                </span>
+                            ` : ''}
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+                            <div>
+                                <h3 class="font-bold text-white text-base uppercase tracking-wider group-hover:text-gold transition-colors line-clamp-1 cursor-pointer" onclick="openDetailModal(${p.id})">
+                                    ${escapeHtml(p.name)}
+                                </h3>
+                                <p class="text-xs text-gray-400 mt-1 line-clamp-2">${escapeHtml(p.description)}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-2 border-t border-brand-border/60">
+                                <div>
+                                    <span class="text-[10px] text-gray-500 block font-mono uppercase">Harga</span>
+                                    <span class="text-sm font-black text-white">Rp ${formatRupiah(p.price)}</span>
+                                </div>
+                                <button onclick="${p.inStock ? `addToCart(${p.id})` : 'showToast(\'Stok habis\', \'error\')'}" 
+                                        class="px-3.5 py-2 rounded-xl ${p.inStock ? 'bg-gold/10 hover:bg-gold text-gold hover:text-black border border-gold/30' : 'bg-gray-800 text-gray-500 border border-brand-border cursor-not-allowed'} font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bag-shopping"></i> ${p.inStock ? 'Beli' : 'Habis'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function selectSize(size) {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                if (btn.innerText === size) {
+                    btn.className = "size-btn px-3 py-1.5 rounded-lg border border-gold bg-gold/10 text-gold text-xs font-bold";
+                } else {
+                    btn.className = "size-btn px-3 py-1.5 rounded-lg border border-brand-border text-xs text-gray-300 hover:border-gold font-bold";
+                }
+            });
+        }
+
+        function openDetailModal(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById('detail-image').src = p.image;
+            document.getElementById('detail-badge').innerText = p.category;
+            document.getElementById('detail-category').innerText = `ZAO OFFICIAL // ${p.category}`;
+            document.getElementById('detail-name').innerText = p.name;
+            document.getElementById('detail-price').innerText = `Rp ${formatRupiah(p.price)}`;
+            document.getElementById('detail-desc').innerText = p.description;
+
+            const btn = document.getElementById('detail-add-cart-btn');
+            if (p.inStock) {
+                btn.disabled = false;
+                btn.className = "w-full py-3.5 rounded-xl bg-gold text-black font-extrabold text-xs uppercase tracking-wider hover:bg-gold-light transition-all shadow-lg shadow-gold/20 flex items-center justify-center gap-2";
+                btn.innerHTML = `<i class="fa-solid fa-bag-shopping"></i> Tambah Ke Keranjang`;
+                btn.onclick = function() {
+                    addToCart(p.id, selectedSize);
+                    closeDetailModal();
+                };
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full py-3.5 rounded-xl bg-gray-800 text-gray-500 font-bold text-xs uppercase tracking-wider border border-brand-border cursor-not-allowed";
+                btn.innerText = "Stok Produk Habis";
+            }
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+                renderCart();
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function addToCart(productId, size = 'M') {
+            const p = products.find(item => item.id === productId);
+            if (!p || !p.inStock) return;
+
+            const idx = cart.findIndex(c => c.id === productId && c.size === size);
+            if (idx !== -1) cart[idx].qty += 1;
+            else cart.push({ ...p, size: size, qty: 1 });
+
+            updateCartBadge();
+            showToast(`${p.name} (${size}) ditambahkan!`, "success");
+        }
+
+        function updateCartQty(id, size, delta) {
+            const idx = cart.findIndex(c => c.id === id && c.size === size);
+            if (idx !== -1) {
+                cart[idx].qty += delta;
+                if (cart[idx].qty <= 0) cart.splice(idx, 1);
+                updateCartBadge();
+                renderCart();
+            }
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const total = cart.reduce((acc, c) => acc + c.qty, 0);
+            if (total > 0) {
+                badge.innerText = total;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-500 space-y-2">
+                        <i class="fa-solid fa-bag-shopping text-4xl mb-2 text-brand-border"></i>
+                        <p class="text-xs font-semibold uppercase">Keranjang Belanja Kosong</p>
+                    </div>
+                `;
+                totalEl.innerText = "Rp 0";
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                total += item.price * item.qty;
+                return `
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-brand-black border border-brand-border">
+                        <img src="${escapeHtml(item.image)}" class="w-14 h-14 object-cover rounded-lg bg-brand-card" onerror="this.src='https://placehold.co/200x200/141418/D4AF37?text=ZAO'">
+                        <div class="flex-grow">
+                            <h4 class="text-xs font-bold text-white uppercase tracking-wider line-clamp-1">${escapeHtml(item.name)}</h4>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <span class="text-[11px] text-gold font-semibold">Rp ${formatRupiah(item.price)}</span>
+                                <span class="text-[10px] bg-brand-card px-1.5 py-0.5 rounded text-gray-400 border border-brand-border font-bold">Size: ${item.size}</span>
+                            </div>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateCartQty(${item.id}, '${item.size}', -1)" class="w-5 h-5 rounded bg-brand-card border border-brand-border text-gray-300 flex items-center justify-center text-xs hover:border-gold">-</button>
+                                <span class="text-xs font-bold text-white">${item.qty}</span>
+                                <button onclick="updateCartQty(${item.id}, '${item.size}', 1)" class="w-5 h-5 rounded bg-brand-card border border-brand-border text-gray-300 flex items-center justify-center text-xs hover:border-gold">+</button>
+                            </div>
+                        </div>
+                        <button onclick="updateCartQty(${item.id}, '${item.size}', -${item.qty})" class="text-red-400 hover:text-red-300 p-2">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = `Rp ${formatRupiah(total)}`;
+        }
+
+        function handleWhatsAppCheckout() {
+            if (cart.length === 0) return;
+            let msg = "Halo ZAO Official, saya ingin memesan:\n\n";
+            let total = 0;
+            cart.forEach((item, i) => {
+                const sub = item.price * item.qty;
+                total += sub;
+                msg += `${i+1}. ${item.name} (${item.size}) - ${item.qty}x (Rp ${formatRupiah(sub)})\n`;
+            });
+            msg += `\nTotal: Rp ${formatRupiah(total)}`;
+
+            const phone = "6281292079062"; // Ganti nomor WhatsApp Anda
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function formatRupiah(amt) {
+            return new Intl.NumberFormat('id-ID').format(amt);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function showToast(msg, type = "info") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            let bg = type === "success" ? "bg-brand-card border-gold text-gold" : "bg-brand-card border-red-500 text-red-400";
+            toast.className = `p-4 rounded-xl border text-xs font-semibold shadow-xl transition-all duration-300 flex items-center gap-2 ${bg}`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${escapeHtml(msg)}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
